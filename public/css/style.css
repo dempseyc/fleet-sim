@@ -1,0 +1,37 @@
+.s-white {
+  background-color: #ffffffc8; }
+
+.s-red {
+  background-color: #ff3333c8; }
+
+.s-blue {
+  background-color: #00a9bbc8; }
+
+.s-green {
+  background-color: #00a000c8; }
+
+.s-purple {
+  background-color: #a06ed8c8; }
+
+#board {
+  position: relative;
+  height: 100vh;
+  width: 100vh;
+  background: #222222;
+  overflow: hidden; }
+
+.ship {
+  position: absolute;
+  height: 6px;
+  width: 6px;
+  left: 0;
+  top: 0; }
+
+.gold {
+  position: absolute;
+  height: 2px;
+  width: 2px;
+  left: 0;
+  top: 0;
+  background-color: gold;
+  box-shadow: 0 0 5px 1px gold; }

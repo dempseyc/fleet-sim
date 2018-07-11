@@ -1,0 +1,58 @@
+$num-ships: 20;
+
+$board-color: #222222;
+$ship-colors: #ffffffc8, #ff3333c8, #00a9bbc8, #00a000c8, #a06ed8c8 ;
+
+$white-slug: "white";
+$red-slug: "red";
+$blue-slug: "blue";
+$green-slug: "green";
+$purple-slug: "purple";
+$s-slug: "s-";
+
+
+.#{$s-slug}#{$white-slug} {
+    background-color: nth($ship-colors, 1);
+}
+
+.#{$s-slug}#{$red-slug} {
+    background-color: nth($ship-colors, 2);
+}
+
+.#{$s-slug}#{$blue-slug} {
+    background-color: nth($ship-colors, 3);
+}
+
+.#{$s-slug}#{$green-slug} {
+    background-color: nth($ship-colors, 4);
+}
+
+.#{$s-slug}#{$purple-slug} {
+    background-color: nth($ship-colors, 5);
+}
+
+#board {
+    position: relative;
+    height: 100vh;
+    width: 100vh;
+    background: $board-color;
+    overflow: hidden;
+}
+
+.ship {
+    position: absolute;
+    height: 6px;
+    width: 6px;
+    left: 0;
+    top: 0;
+}
+
+.gold {
+    position: absolute;
+    height: 2px;
+    width: 2px;
+    left: 0;
+    top: 0;
+    background-color: gold;
+    box-shadow: 0 0 5px 1px gold; 
+}

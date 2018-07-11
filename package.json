@@ -5,8 +5,8 @@
   "main": "loop.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-css": "node-sass --o ./public/css/style.css ./scss/style.scss",
-    "watch-css": "nodemon -e sass -x \"npm run build-css\""
+    "build-css": "node-sass --o ./public/css ./scss/style.scss",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\""
   },
   "author": "",
   "license": "ISC",
