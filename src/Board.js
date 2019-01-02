@@ -106,4 +106,9 @@ export class Board {
 		// console.log("2sec Update");
 	}
 
+	clear () {
+		while (this.DOMh.firstChild) {
+			this.DOMh.removeChild(this.DOMh.firstChild);
+		}
+	}
 }

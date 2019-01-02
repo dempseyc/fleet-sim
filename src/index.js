@@ -3,13 +3,19 @@ import { Board } from './Board.js';
 
 // revenue of average ship: 66;
 
-// runSim and collect Data 3 times;
+// runSim and collect Data iter times
+let ready = true;
+let iter = 20;
 
 let data = [
     {banner: 'red', gold: 0},
     {banner: 'green', gold: 0},
     {banner: 'blue', gold: 0}
 ];
+
+let dataAverage = function (data,iter) {
+
+}
 
 function displayData () {
     let rScoreDOMh = document.querySelector('#r-score');
@@ -18,15 +24,11 @@ function displayData () {
     gScoreDOMh.textContent = data[1].gold;
     let bScoreDOMh = document.querySelector('#b-score');
     bScoreDOMh.textContent = data[2].gold;
+    ready = true;
 }
 
 function runSim () {
-    let simData = {
-        // revenue of average ship: 66;
-        red: { gold: 0, strategy: {} },
-        green: {gold: 0, strategy: {} },
-        blue: { gold: 0, stategy: {} }
-    };
+    ready = false;
 
     let simBoard = new Board();
 
@@ -114,7 +116,7 @@ function runSim () {
             frameID = requestAnimationFrame(mainLoop); 
         } else { 
             stop(); 
-            afterSim();
+            endSim();
         }
 
         function every_200_frames () {
@@ -129,7 +131,7 @@ function runSim () {
 
     start();
 
-    function afterSim () {
+    function endSim () {
         simBoard.fleets.forEach((f,i) => {
             let gold = f.s_array.reduce((a,s,i) => {
                 return a+s.gold;
@@ -137,9 +139,16 @@ function runSim () {
             data[i].gold += gold;
             console.log(i+1, f.banner, gold);
         });
+        simBoard.clear();
         displayData();
+        iter--;
+        if (iter>0) {
+            // the point of recursion
+            runSim();
+        }
     }
-
 }// function runSim
 
 runSim();
+
+console.log("complete");

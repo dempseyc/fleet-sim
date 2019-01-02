@@ -117,7 +117,7 @@ export class Ship {
 	}
 
 	getAttacked(damage) {
-		console.log("damage", this.shieldStatus);
+		// console.log("damage", this.shieldStatus);
 		this.shieldStatus -= damage;
 		if (this.shieldStatus<=0) {
 			this.speed = (this.engine+this.shieldStatus) * this.fraction;
@@ -126,7 +126,7 @@ export class Ship {
 	}
 
 	startStunnedTimer () {
-		console.log("got stunned", this.speed);
+		// console.log("got stunned", this.speed);
 		this.status = 3;
 	}
 
