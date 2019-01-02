@@ -2,8 +2,10 @@ import { randomMM, squareNum } from './utils.js';
 
 export class Ship {
 
-	constructor (color, style, profile, idx) {
-		this.color = color;
+	constructor (banner, style, insignia, profile, idx) {
+		this.banner = banner;
+		this.style = style;
+		this.insignia = insignia;
 		this.idx = idx;
 		this.shield = profile[0];
 		this.weapon = profile[1];
@@ -13,19 +15,14 @@ export class Ship {
 		this.status = 0;
 		this.shieldStatus = profile[0];
 		this.gold = 0;
-		// this.getAttacked = this.getAttacked.bind(this);
-
 		this.init();
-		// console.log(this);
-	} // end Ship constructor
+	}
 
-	//methods
-
-	///////////////////////// init
 	init () {
-		let classes = ['ship',`s-${this.idx}`, `s-${this.color}`, `s-${this.style}`];
+		let classes = ['ship',`s-${this.idx}`, `s-${this.banner}`, `s-${this.style}`];
 		this.DOMh = document.createElement('div');
 		this.DOMh.classList.add(...classes);
+		this.DOMh.textContent = this.insignia;
 		this.getInitialPosition();
 		this.draw();
 	}

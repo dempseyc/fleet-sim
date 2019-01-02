@@ -1,0 +1,84 @@
+$white: #eeeeee;
+$red: #cc1111;
+$blue: #1166bb;
+$green: #008800;
+$purple: #8855ee;
+$black: #222222;
+
+$cyan: #22cccc;
+$yellow: #cccc44;
+$magenta: #ff88ff;
+
+.s-white {
+  background: $white;
+  color: $black;
+}
+.s-red {
+  background: $red;
+  color: $magenta;
+}
+.s-blue {
+  background: $blue;
+  color: $cyan;
+}
+.s-green {
+  background: $green;
+  color: $yellow;
+}
+.s-purple {
+  background: $purple;
+  color: $green;
+}
+
+// .s-average {
+//   left: 5%;
+// }
+// .s-swift {
+//   left: 25%;
+// }
+// .s-transport {
+//   left: 45%;
+// }
+// .s-gunner {
+//   left: 65%;
+// }
+// .s-speeder {
+//   left: 85%;
+// }
+
+
+#board {
+  position: relative;
+  height: 100vh;
+  width: 100vh;
+  background: $black;
+  overflow: hidden;
+}
+
+#data-display {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+}
+
+.ship {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  font-size: 18px;
+  line-height: 14px;
+  font-family: 'Roboto Mono', monospace;
+  text-align: center;
+  clip-path: polygon(0% 100%,50% 0%,100% 100%);
+}
+
+.gold {
+  position: absolute;
+  height: 2px;
+  width: 2px;
+  left: 0;
+  top: 0;
+  background-color: gold;
+  box-shadow: 0 0 5px 1px gold;
+
+}

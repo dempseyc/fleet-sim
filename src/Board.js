@@ -8,9 +8,9 @@ export class Board {
 		this.money_per_fleet = 150000;
 		this.DOMh = document.getElementById('board');
 		this.fleets = [
-			new Fleet('red',this.money_per_fleet,{average:20,swift:0,transport:0,gunner:0,speeder:0}),
-			new Fleet('green',this.money_per_fleet,{average:20,swift:0,transport:0,gunner:0,speeder:0}),
-			new Fleet('blue',this.money_per_fleet,{average:20,swift:0,transport:0,gunner:0,speeder:0})];
+			new Fleet('red',this.money_per_fleet,{standard:20,swift:0,transport:0,gunner:0,speeder:0}),
+			new Fleet('green',this.money_per_fleet,{standard:20,swift:0,transport:0,gunner:0,speeder:0}),
+			new Fleet('blue',this.money_per_fleet,{standard:20,swift:0,transport:0,gunner:0,speeder:0})];
 		this.gold_pieces = [];
 		this.init();
 	}

@@ -1,7 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const devMode = process.env.NODE_ENV !== 'production';
-const devMode = false;
+const devMode = true;
 
 module.exports = {
   entry: './src/index.js',
@@ -26,7 +26,6 @@ module.exports = {
         use: [
           devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          // 'postcss-loader',
           'sass-loader',
         ],
       },

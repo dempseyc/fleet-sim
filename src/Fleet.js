@@ -17,11 +17,11 @@ export class Fleet {
 	}
 
 	purchaseShips () {
-		//this.strategy = {average:100,swift:0,transport:0,gunner:0,speeder:0};
-		let numAV = this.strategy.average;
+		//this.strategy = {standard:100,swift:0,transport:0,gunner:0,speeder:0};
+		let numAV = this.strategy.standard;
 		let i = 0;
 		while (numAV>i+1) {
-			this.s_array.push(this.sf.buildShip(this.banner,'average',i));
+			this.s_array.push(this.sf.buildShip(this.banner,'standard',i));
 			i++;
 		}
 	}
