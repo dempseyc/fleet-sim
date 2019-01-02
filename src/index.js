@@ -1,14 +1,16 @@
+import './style.css';
+import { Board } from './Board.js';
 
+let simBoard = new Board();
 
-var board = new Simulation();
-
-var lastFrameTimeMs = 0,
+let frameID = 0,
+    lastFpsUpdate = 0,
+    lastFrameTimeMs = 0,
     maxFPS = 100,
     delta = 0,
-    lastFrameTimeMs = 0,
     timestep = 1000 / 100;
 
-var running = false,
+let running = false,
     started = false;
     
 function stop() {
@@ -23,12 +25,11 @@ function start() {
         // Dummy frame to get our timestamps and initial drawing right.
         // Track the frame ID so we can cancel it if we stop quickly.
         frameID = requestAnimationFrame(function(timestamp) {
-            board.draw(1); // initial board.draw
+            simBoard.draw(); // initial simBoard.draw
             running = true;
-            // reset some time tracking variables
+            // reset some time tracking letables
             lastFrameTimeMs = timestamp;
             lastFpsUpdate = timestamp;
-            framesThisSecond = 0;
             // actually start the main loop
             frameID = requestAnimationFrame(mainLoop);
         });
@@ -54,21 +55,21 @@ function mainLoop(timestamp) {
     delta += timestamp - lastFrameTimeMs;
     lastFrameTimeMs = timestamp;
 
-    var numUpdateSteps = 0;
+    let numUpdateSteps = 0;
     while (delta >= timestep) {
         i_counter++;
         if (i_counter > 74) {
-            console.log(i_counter);
+            // console.log(i_counter);
             every_75_frames();
             i_counter = 0;
         }
         ii_counter++;
         if (ii_counter > 199) {
-            console.log(ii_counter);
+            // console.log(ii_counter);
             every_200_frames();
             ii_counter = 0;
         }
-        board.update(delta);
+        simBoard.update(delta);
         delta -= timestep;
         if (++numUpdateSteps >= 124) {
             // stop();
@@ -76,10 +77,10 @@ function mainLoop(timestamp) {
             break;
         }
     }
-    board.draw();
+    simBoard.draw();
 
 
-    var g = board.gold_on_field.length;
+    let g = simBoard.gold_on_field().length;
     // console.log(g);
 
     if (g > 0) {
@@ -90,11 +91,11 @@ function mainLoop(timestamp) {
     }
 
     function every_200_frames () {
-        board.twoSecUpdate();
+        simBoard.twoSecUpdate();
     }
 
-   function every_75_frames () {
-        board.oneSecUpdate();
+    function every_75_frames () {
+        simBoard.oneSecUpdate();
     }
 
 }
@@ -102,16 +103,10 @@ function mainLoop(timestamp) {
 start();
 
 function afterSim () {
-    let f1_gold = board.fleet1.s_array.reduce((a,s,i) => {
-        return a+s.assets;
-    }, 0);
-    let f2_gold = board.fleet2.s_array.reduce((a,s,i) => {
-        return a+s.assets;
-    }, 0);
-    let f3_gold = board.fleet3.s_array.reduce((a,s,i) => {
-        return a+s.assets;
-    }, 0);
-    console.log("1", board.fleet1.fleet_type, f1_gold);
-    console.log("2", board.fleet2.fleet_type, f2_gold);
-    console.log("3", board.fleet3.fleet_type, f3_gold);
+    simBoard.fleets.forEach((f,i) => {
+        let gold = f.s_array.reduce((a,s,i) => {
+            return a+s.gold;
+        }, 0);
+        console.log(i+1, f.banner, gold);
+    });
 }
