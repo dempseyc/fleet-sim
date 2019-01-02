@@ -16,8 +16,8 @@ export class ShipFactory {
 
         this.baselines = {
             sh: 20,
-            wp: 10,
-            eg: 15
+            wp: 20,
+            eg: 20
         }
         this.multipliers =  {
             sh: 2,
