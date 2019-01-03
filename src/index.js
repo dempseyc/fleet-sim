@@ -1,11 +1,19 @@
 import './style.scss';
 import { Board } from './Board.js';
+import { stanDev, getMean } from './utils.js';
 
 // revenue of average ship: 66;
 
 // runSim and collect Data iter times
 let ready = true;
-let iter = 20;
+let done = false;
+let runs = 1;
+let iter = 1;
+let rScoreDOMh = document.querySelector('#r-score');
+let bScoreDOMh = document.querySelector('#b-score');
+let gScoreDOMh = document.querySelector('#g-score');
+let stanDevDOMh = document.querySelector('#stan-dev');
+let scores = [];
 
 let data = [
     {banner: 'red', gold: 0},
@@ -13,18 +21,23 @@ let data = [
     {banner: 'blue', gold: 0}
 ];
 
-let dataAverage = function (data,iter) {
-
-}
-
 function displayData () {
-    let rScoreDOMh = document.querySelector('#r-score');
     rScoreDOMh.textContent = data[0].gold;
-    let gScoreDOMh = document.querySelector('#g-score');
     gScoreDOMh.textContent = data[1].gold;
-    let bScoreDOMh = document.querySelector('#b-score');
     bScoreDOMh.textContent = data[2].gold;
     ready = true;
+}
+
+function displayAverage () {
+    rScoreDOMh.textContent = `${data[0].gold / runs} avg`;
+    gScoreDOMh.textContent = `${data[1].gold / runs} avg`;
+    bScoreDOMh.textContent = `${data[2].gold / runs} avg`;
+    displayStanDev();
+    ready = true;
+}
+
+function displayStanDev () {
+    stanDevDOMh.textContent = stanDev(scores);
 }
 
 function runSim () {
@@ -136,6 +149,7 @@ function runSim () {
             let gold = f.s_array.reduce((a,s,i) => {
                 return a+s.gold;
             }, 0);
+            scores.push(gold);
             data[i].gold += gold;
             console.log(i+1, f.banner, gold);
         });
@@ -146,9 +160,12 @@ function runSim () {
             // the point of recursion
             runSim();
         }
+        else {
+            done = true;
+            displayAverage();
+            console.log("complete");
+        }
     }
 }// function runSim
 
 runSim();
-
-console.log("complete");
