@@ -7,10 +7,31 @@ export class Board {
 		this.num_gold = 900;
 		this.money_per_fleet = 150000;
 		this.DOMh = document.getElementById('board');
+		this.REDstrategy = {
+			standard:  10,
+			swift:      0,
+			transport:  0,
+			gunner:     0,
+			speeder:    0
+		};
+		this.GREENstrategy = {
+			standard:  10,
+			swift:      0,
+			transport:  0,
+			gunner:     0,
+			speeder:    0
+		};
+		this.BLUEstrategy = {
+			standard:  10,
+			swift:      0,
+			transport:  0,
+			gunner:     0,
+			speeder:    0
+		};
 		this.fleets = [
-			new Fleet('red',this.money_per_fleet,{standard:20,swift:0,transport:0,gunner:0,speeder:0}),
-			new Fleet('green',this.money_per_fleet,{standard:20,swift:0,transport:0,gunner:0,speeder:0}),
-			new Fleet('blue',this.money_per_fleet,{standard:20,swift:0,transport:0,gunner:0,speeder:0})];
+			new Fleet('red',this.money_per_fleet,this.REDstrategy),
+			new Fleet('green',this.money_per_fleet,this.GREENstrategy),
+			new Fleet('blue',this.money_per_fleet,this.BLUEstrategy)];
 		this.gold_pieces = [];
 		this.init();
 	}
@@ -93,17 +114,6 @@ export class Board {
 				s.move(delta);
 			});
 		});
-	}
-
-	// how to make this more fluid?
-	oneSecUpdate () {
-		this.makeAttacks();
-		// console.log("1sec Update");
-	}
-
-	twoSecUpdate () {
-		this.setTargets();
-		// console.log("2sec Update");
 	}
 
 	clear () {

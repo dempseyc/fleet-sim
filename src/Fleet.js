@@ -8,7 +8,7 @@ export class Fleet {
 		this.money = money;
 		this.s_array = [];
 		this.strategy = strategy;
-		this.sf = new ShipFactory(this.banner);
+		this.SF = new ShipFactory(this.banner);
 		this.init();
 	}
 
@@ -18,11 +18,16 @@ export class Fleet {
 
 	purchaseShips () {
 		//this.strategy = {standard:100,swift:0,transport:0,gunner:0,speeder:0};
-		let numAV = this.strategy.standard;
-		let i = 0;
-		while (numAV>i+1) {
-			this.s_array.push(this.sf.buildShip(this.banner,'standard',i));
-			i++;
+		let numST = this.strategy.standard;
+		let idx = 0;
+		for (let style in this.strategy) {
+			let i = 0;
+			let num = this.strategy[style];
+			while (num>i+1) {
+				this.s_array.push(this.SF.buildShip(this.banner,style,idx));
+				idx++;
+				i++;
+			}
 		}
 	}
 

@@ -58,24 +58,17 @@ function runSim () {
     function stop() {
         running = false;
         started = false;
-        cancelAnimationFrame(frameID);
     }
 
     function start() {
-        if (!started) { // don't request multiple frames
+        if (!started) {
             started = true;
-            // Dummy frame to get our timestamps and initial drawing right.
-            // Track the frame ID so we can cancel it if we stop quickly.
-            frameID = requestAnimationFrame(function(timestamp) {
-                simBoard.draw(); // initial simBoard.draw
-                running = true;
-                // reset some time tracking letables
-                lastFrameTimeMs = timestamp;
-                lastFpsUpdate = timestamp;
-                // actually start the main loop
-                frameID = requestAnimationFrame(mainLoop);
-            });
+            let startLoop = mainLoop();
         }
+    }
+
+    function next(cb) {
+        cb();
     }
 
     function panic() {
@@ -86,48 +79,31 @@ function runSim () {
     let ii_counter = 0;
     let i_counter = 0;
 
-    function mainLoop(timestamp) {
-        // throttle the frame rate  
-        if (timestamp < lastFrameTimeMs + (1000 / maxFPS)) {
-            frameID = requestAnimationFrame(mainLoop);
-            return;
-        }
-        
-        // create virtual time
-        delta += timestamp - lastFrameTimeMs;
-        lastFrameTimeMs = timestamp;
-
-        let numUpdateSteps = 0;
-        while (delta >= timestep) {
+    function mainLoop() {
+        let g = simBoard.gold_on_field().length;
+        while (g>0) {
             i_counter++;
-            if (i_counter > 25) {
-                simBoard.setTargets();
+            if (i_counter > 74) {
+                every_75_frames();
                 i_counter = 0;
             }
             ii_counter++;
-            if (ii_counter > 50) {
-                simBoard.makeAttacks();
+            if (ii_counter > 199) {
+                every_200_frames();
                 ii_counter = 0;
             }
             simBoard.update(delta);
-            delta -= timestep;
-            if (++numUpdateSteps >= 124) {
-                // stop();
-                panic();
-                break;
-            }
+            simBoard.draw();
         }
-        simBoard.draw();
+        stop(); 
+        endSim();
 
+        function every_200_frames () {
+            simBoard.twoSecUpdate();
+        }
 
-        let g = simBoard.gold_on_field().length;
-        // console.log(g);
-
-        if (g > 0) {
-            frameID = requestAnimationFrame(mainLoop); 
-        } else { 
-            stop(); 
-            endSim();
+        function every_75_frames () {
+            simBoard.oneSecUpdate();
         }
 
     }

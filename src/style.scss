@@ -70,6 +70,7 @@ $magenta: #ff88ff;
   font-family: 'Roboto Mono', monospace;
   text-align: center;
   clip-path: polygon(0% 100%,50% 0%,100% 100%);
+  border-radius:100%;
 }
 
 .gold {
@@ -79,6 +80,39 @@ $magenta: #ff88ff;
   left: 0;
   top: 0;
   background-color: gold;
-  box-shadow: 0 0 5px 1px gold;
+  box-shadow: 0 0 2px 1px gold;
+}
 
+.s-status0 {
+  outline: none;
+}
+
+.s-status1 {
+  outline: #aaccff;
+  animation:fade 1000ms infinite;
+  -webkit-animation:fade 1000ms infinite;
+}
+
+.s-status2 {
+  outline: #aaccff;
+  animation:fade 750ms infinite;
+  -webkit-animation:fade 750ms infinite;
+}
+
+.s-status3 {
+  outline: #aaccff;
+  animation:fade 500ms infinite;
+  -webkit-animation:fade 500ms infinite;
+}
+
+@keyframes fade {
+  from { opacity: 1.0; }
+  50% { opacity: 0.5; }
+  to { opacity: 1.0; }
+}                                                                                                                                                                                                                                  
+
+@-webkit-keyframes fade {
+  from { opacity: 1.0; }
+  50% { opacity: 0.5; }
+  to { opacity: 1.0; }
 }

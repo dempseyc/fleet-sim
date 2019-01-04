@@ -19,7 +19,7 @@ export class Ship {
 	}
 
 	init () {
-		let classes = ['ship',`s-${this.idx}`, `s-${this.banner}`, `s-${this.style}`];
+		let classes = ['ship',`s-${this.idx}`, `s-${this.banner}`, `s-${this.style}`, `s-${this.status}`];
 		this.DOMh = document.createElement('div');
 		this.DOMh.classList.add(...classes);
 		this.DOMh.textContent = this.insignia;
@@ -106,14 +106,17 @@ export class Ship {
 	}
 
 	attackEnemy() {
-		let max_d_attack = 200;
-		let miss_rate = this.et_d / squareNum(max_d_attack) ;
-		let accuracy = Math.floor(Math.random()*(1-miss_rate)*9);
-		let ran = randomMM(0,accuracy);
-		if (ran >= 2) {
-			this.et.getAttacked(this.weapon);
+		if (this.status === 0) {
+			let max_d_attack = 200;
+			let miss_rate = this.et_d / squareNum(max_d_attack) ;
+			let accuracy = Math.floor(Math.random()*(1-miss_rate)*9);
+			let ran = randomMM(0,accuracy);
+			if (ran >= 2) {
+				this.et.getAttacked(this.weapon);
+			}
+		} else {
+			this.decrementStunned();
 		}
-		this.incrementStunnedTimer();
 	}
 
 	getAttacked(damage) {
@@ -127,12 +130,16 @@ export class Ship {
 
 	startStunnedTimer () {
 		// console.log("got stunned", this.speed);
+		this.DOMh.classList.remove(`s-status0`);
+		this.DOMh.classList.add(`s-status${this.status}`);
 		this.status = 3;
 	}
 
-	incrementStunnedTimer () {
+	decrementStunned () {
 		if (this.status > 0) {
-			this.status--;
+			this.DOMh.classList.remove(`s-status${this.status}`);
+			this.status--; // is this immediate?
+			this.DOMh.classList.add(`s-status${this.status}`);
 		}
 		if (this.status === 0) {
 			this.speed = this.engine * this.fraction;
